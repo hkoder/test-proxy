@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Redirector</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Link Redirector</h1>
+        <p>Enter the link you want to visit:</p>
+        <form id="redirectForm">
+            <input type="url" id="linkInput" placeholder="Enter URL (e.g., https://now.gg/)" required>
+            <button type="button" onclick="redirect()">Go</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to redirect on form submit or Enter key press
+        function redirect() {
+            var link = document.getElementById('linkInput').value.trim();
+
+            // If the link starts with "now.gg", transform it
+            if (link === "now.gg") {
+                window.location.href = "https://nowgg.nl/play";
+            } else if (/^https?:\/\/now\.gg\//.test(link)) {
+                // If the link starts with "https://now.gg/", transform it
+                link = link.replace(/^https?:\/\/now\.gg\/apps\//, "https://nowgg.nl/play/");
+                window.location.href = link.replace(/^https?:\/\/now\.gg\//, "https://nowgg.nl/");
+            } else {
+                alert("Please enter a valid link starting with 'now.gg/' or 'https://now.gg/'");
+            }
+        }
+
+        // Enable form submission on Enter key press
+        document.getElementById("redirectForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            redirect();
+        });
+    </script>
+</body>
+</html>
